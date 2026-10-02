@@ -54,7 +54,7 @@ def projectStart():
     print('Start of Project 3')
     print('Written by: Thomas Butler')
     print('Date: 01-10-2026')
-    print(squigglyWrap('Bank Fees'))
+    print(squigglyWrap('Shipping Fee Calculator'))
 
 # This function will display the start of the project
 def projectEnd():
@@ -74,27 +74,27 @@ def getIntegerData(prompt):
         else:
             return value
 
-# This function will return a float input from the user
-#def getFloatData(prompt):
-    #value = float(input(prompt))
-    #return value
-
 # This function will return a string input from the user
 def getStringData(prompt):
     value = input(prompt)
     return value
 
-# This function will print 51-character squiggly borders above and below the string parameter
+# This function will print 51-character squiggly borders above and below the string parameter or just border if string is empty
 def squigglyWrap(text):
     squiggly = '\n' + '~ ' * 25 + '~\n'
     wrapped = squiggly + '\t' + text + squiggly
-    return wrapped
+    
+    if text == '':
+        return squiggly
+    else:
+        return wrapped
 
 def promptUser():
     name = getStringData('\nPlease enter customer name:\t')
     numPkgs = getIntegerData('\nPlease enter number of packages shipped during the month:\t')
     return name, numPkgs
 
+# Define functino to calculate shipping charges by number of packages.
 def calculateCharges(numPkgs):
     if numPkgs < 10:
         rate = 2
@@ -107,11 +107,11 @@ def calculateCharges(numPkgs):
     return rate, 15 + rate * numPkgs
 
 def displayResults(cusName, qty, shipRate, totMonCharges):
-
-    print('Customer Name:\t\t', cusName)
+    print(squigglyWrap(''))
+    print('Customer Name:\t\t\t\fsat', cusName)
     print('Number of Packages Shipped this month:\t', qty)
-    print('Shipping Rate per Packacge:\t', shipRate)
-    print('Total Monthly Charges:\t', totMonCharges)
+    print('Shipping Rate per Packacge:\t\t', shipRate)
+    print('Total Monthly Charges:\t\t\t', totMonCharges)
     return None
 
 main() # calling the function main()
