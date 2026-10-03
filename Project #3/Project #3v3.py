@@ -51,7 +51,7 @@ def main():
     projectEnd()
    
 def projectStart():
-    print('Start of Project 3')
+    print('\nStart of Project 3')
     print('Written by: Thomas Butler')
     print('Date: 01-10-2026')
     print(squigglyWrap('Shipping Fee Calculator'))
@@ -108,10 +108,10 @@ def calculateCharges(numPkgs):
 
 def displayResults(cusName, qty, shipRate, totMonCharges):
     print(squigglyWrap(''))
-    print('Customer Name:\t\t\t\fsat', cusName)
+    print(f'Customer Name:\t\t\t\t {cusName}')
     print('Number of Packages Shipped this month:\t', qty)
-    print('Shipping Rate per Packacge:\t\t', shipRate)
-    print('Total Monthly Charges:\t\t\t', totMonCharges)
+    print(f'Shipping Rate per Package:\t\t${shipRate:.2f}')
+    print(f'Total Monthly Charges:\t\t\t${totMonCharges:.2f}')
     return None
 
 main() # calling the function main()
