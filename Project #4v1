@@ -14,28 +14,35 @@
 # You are encouraged to create additional functions to improve program organization, readability, and modularity.
 # ---------------------------------------------
 
-# This function will display the start of the project
+# Function to display project header
 def projectStart():
-    print('Start of Project 4')
-    print('Written by: Your Name')
-    print('Date: Enter date ')
-    print('-' * 50 )
-    print('\tHere your write project information')
-    print('-' * 50 + '\n')
+    print('\nStart of Project 4')
+    print('Written by: Thomas Butler')
+    print('Date: 09-10-2026')
+    print(squigglyWrap('Odd-Numbered Milestone Calculator'))
 
-# This function will display the start of the project
+# This function will display the project footer
 def projectEnd():
-    print('-' * 50)
-    print('End of Project 4')
+    print(squigglyWrap('End of Project 4'))
+
+# This function will print 51-character squiggly borders above and below the string parameter or just border if string is empty
+def squigglyWrap(text):
+    squiggly = '\n' + '~ ' * 25 + '~\n'
+    wrapped = squiggly + '\t' + text + squiggly
+    
+    if text == '':
+        return squiggly
+    else:
+        return wrapped
 
 # This function will return an integer input from the user
-def getIntegerData(prompt):
+def getPosInt(prompt):
     while (True):
         try:
             value = int(input(prompt))
             return value
         except ValueError:
-            print('\t\tError Message.  Enter numbers ONLY!')
+            print('\t\tError Message.  Please enter numbers ONLY!')
 
 # This function will return a float input from the user
 def getFloatData(prompt):
@@ -44,7 +51,7 @@ def getFloatData(prompt):
             value = float(input(prompt))
             return value
         except ValueError:
-            print('\t\tError Message.  Enter numbers ONLY!')
+            print('\t\tError Message.  Please enter numbers ONLY!')
 
 # This function will return a string input from the user
 def getStringData(prompt):
@@ -63,13 +70,45 @@ def getCharData(prompt):
 
         print('\t\tERROR Message: Wrong selection')
 
+
+# Define function to calculate odd-numbered milestones and sum thereof
+def calcMileSum(userInput):
+
+    # List numbers 0 to userInput
+
+    # Calculate and assign odds to first return variable
+
+    # Sum the Odds and assign to second return variable
+
+    # Return Variables
+    return stoneList, oddSum
+    
+# Define function to display list of milestones and their sum
+def displayAll(stoneList, oddSum)
+
+    print('The odd-numbered milestones walked are as follows:')
+    print(stoneList)
+    print(f'The sum of these milestones is {oddSum}.')
+    
+    # return
+    return None
+
+# Calling function main
 def main(): 
-    # Calls function to display the start of project
+    
+    # Calls function to display project header
     projectStart()
 
     # Below we start coding
+    posInt = getPosInt('Please enter a positive integer:\t')
 
-    # Calls function to display the start of project
+    # Calculate Odd-Numbered Milestones and sum thereof. Assign to variables
+    milestones, sumOf = calcMileSum(posInt)
+
+    # Display list of milestones and their sum
+    displayAll(milestones, sumOf)
+
+    # Calls function to display project footer
     projectEnd()
       
 main() # calling the function main()
