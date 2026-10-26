@@ -1,17 +1,19 @@
-
-
 # ---------------------------------------------
-# Name: Your Name
-# Date: Dateof sunmission
-# Project: Project 3
-# Status: WIP
-# Class: COSC 1336
+# 
+# Name:     Thomas Butler
+# ACCeID:   t1095073
+# Date:     16-October-2026
+# Project:  Project 4
+# Status:   Production
+# Class:    COSC 1336 - 020
+# 
 # ---------------------------------------------
-# Project Objectives
-# prompt the user to enter a positive integer representing the maximum
-# The program should validate the input using a loop to ensure the user enters a value greater than 
-# Once a valid number is entered, the program should display all odd-numbered milestones from 1 up to and including the entered number, along with the total sum of those odd numbers.
-# You are encouraged to create additional functions to improve program organization, readability, and modularity.
+# 
+# Project Objectives:
+#   0   Prompt the user to enter a positive integer representing the maximum
+#   1   The program should validate the input using a loop to ensure the user enters a value greater than 
+#   2   Once a valid number is entered, the program should display all odd-numbered milestones from 1 up to and including the entered number, along with the total sum of those odd numbers.
+# 
 # ---------------------------------------------
 
 # Function to display project header
@@ -40,9 +42,12 @@ def getPosInt(prompt):
     while (True):
         try:
             value = int(input(prompt))
-            return value
+            if value > 0:
+                return value
+            else:
+                print('\t\tError Message.  Please enter positive whole numbers ONLY!')
         except ValueError:
-            print('\t\tError Message.  Please enter numbers ONLY!')
+            print('\t\tError Message.  Please enter positive whole numbers ONLY!')
 
 # This function will return a float input from the user
 def getFloatData(prompt):
@@ -53,42 +58,30 @@ def getFloatData(prompt):
         except ValueError:
             print('\t\tError Message.  Please enter numbers ONLY!')
 
-# This function will return a string input from the user
-def getStringData(prompt):
-    value = input(prompt)
-    return value
-
-# This function will return a string input from the user
-def getCharData(prompt):
-
-    while (True):
-        value = input(prompt)
-
-        value = value.upper()
-        if (value in ['W', 'D', 'E']):
-            return value
-
-        print('\t\tERROR Message: Wrong selection')
-
 
 # Define function to calculate odd-numbered milestones and sum thereof
 def calcMileSum(userInput):
 
-    # List numbers 0 to userInput
+    # Initialize empty list
+    odds = []
 
-    # Calculate and assign odds to first return variable
+    # List numbers 0 to userInput
+    for x in range (userInput + 1):
+        if x % 2 != 0:
+            odds.append(x)
 
     # Sum the Odds and assign to second return variable
+    oddSum = sum(odds)
 
     # Return Variables
-    return stoneList, oddSum
+    return odds, oddSum
     
 # Define function to display list of milestones and their sum
-def displayAll(stoneList, oddSum)
+def displayAll(stoneList, oddSum):
 
-    print('The odd-numbered milestones walked are as follows:')
-    print(stoneList)
-    print(f'The sum of these milestones is {oddSum}.')
+    print('\nOdd-numbered milestones:')
+    print(*stoneList)
+    print(f'\nThe sum of these milestones is\t\t\t{oddSum}')
     
     # return
     return None
@@ -100,7 +93,7 @@ def main():
     projectStart()
 
     # Below we start coding
-    posInt = getPosInt('Please enter a positive integer:\t')
+    posInt = getPosInt('Please enter the farthest milestone walked:\t')
 
     # Calculate Odd-Numbered Milestones and sum thereof. Assign to variables
     milestones, sumOf = calcMileSum(posInt)
@@ -112,5 +105,3 @@ def main():
     projectEnd()
       
 main() # calling the function main()
-
-
