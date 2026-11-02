@@ -36,10 +36,10 @@ def squigglyWrap(text):
         return wrapped
 
 # read data
-def fileDataToList(filename):
+def fileDataToList():
     
     # Open in read mode
-    contents = open({filename}, "r")
+    contents = open(fitnessData.txt, "r")
 
     # Read contents and assign to variable
     dataList = getData(contents)
@@ -67,14 +67,14 @@ def getData(contents):
     return dataList
 
 #validate that data in file are positive integers
-def valdateInteger(datum):
+def validateInteger(datum):
     try:
         value = int(input(datum))
         
         #validate positive
         if value < 0:
             print('\t\tERROR: File contains negative data.')
-            break
+
         return value
 
     #validate ingeter
@@ -128,7 +128,7 @@ def main():
     projectStart()
 
     #import data; assign to list variable
-    dataList = fileDataToList(data.txt)
+    dataList = fileDataToList()
 
     #calculate data
     displayList, totalSessions, sumBurned, avgBurned, maxCal, minCal = calculateData(dataList)
