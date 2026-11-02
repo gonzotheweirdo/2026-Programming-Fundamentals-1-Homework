@@ -1,14 +1,9 @@
-def main():
-    studentScores = {
+classA = {101, 102, 103, 104, 105}
+classB = {104, 105, 106, 107, 108}
 
-  'John': [80, 90, 85],
+def goDisplay(set1, set2):
+    commonClasses = set1.intersection(set2)
+    return commonClasses
 
-  'Sara': [100, 95, 90],
+print(goDisplay(classA, classB))
 
-  'Mike': [70, 75, 80]
-
-    }
-    totalScore = sum(studentScores['Sara'])
-    print(studentScores['Sara'])
-    print(totalScore)
-main()
