@@ -36,68 +36,57 @@ def squigglyWrap(text):
         return wrapped
 
 # read data
-def fileDataToList():
-    
-    # Open in read mode
-    contents = open(fitnessData.txt, "r")
+def readData():
 
-    # Read contents and assign to variable
-    dataList = getData(contents)
+    # iterate through each line from the workout data file 
+    with open("fitnessData.txt", "r") as fileContents:
 
-    # Close the file
-    contents.close()
-
-    return dataList
-
-#get data from file and assign to list
-def getData(contents):
-    
-    #initialize list variable
-    dataList = []
-
-    #iterate through file 
-    for line in contents:
-
-        #call function to validate data
-        datum = validateInteger(line)
-
-        #apend valdated data to list 
-        dataList.append(datum)
+        #split the stjring by line and assign to list variable
+        dataList = fileContents.read().splitlines()
 
     return dataList
 
 #validate that data in file are positive integers
-def validateInteger(datum):
-    try:
-        value = int(input(datum))
-        
-        #validate positive
-        if value < 0:
-            print('\t\tERROR: File contains negative data.')
+def validateIntegers(dataList):
+   
+    #initialize list variable empty
+    displayList = []
 
-        return value
+    #iterate through list
+    for line in dataList:
+        try:
+            #convert string to integer
+            value = int(line)
 
-    #validate ingeter
-    except ValueError:
-        print('\t\tERROR: File contains non-integer data.')
+            #validate positive
+            if value < 0:
+                print('\t\tERROR: File contains negative data.')
+            else:
+                displayList.append(value)
+
+        #validate integer
+        except ValueError:
+            print('\t\tERROR: File contains non-integer data.')
+
+    return displayList
 
 #calculate data
 def calculateData(dataList):
 
     #calculate total number of workout sessions
-    totalSessions = len(dataList) + 1
+    totalSessions = len(dataList)
 
     # calculate the sum of all calories burned
     sumBurned = sum(dataList)
 
     # Calculate the average calories burned
-    avgBurned = sum(dataList) / (len(dataList) + 1)
+    avgBurned = sumBurned / totalSessions if totalSessions else 0.0
 
     # calculate the maximum calorie value
-    maxCal = max(dataList)
+    maxCal = max(dataList) if dataList else 0
 
     # calculate the minimum calorie value
-    minCal = min(dataList) 
+    minCal = min(dataList) if dataList else 0
 
     return dataList, totalSessions, sumBurned, avgBurned, maxCal, minCal
 
@@ -105,33 +94,39 @@ def calculateData(dataList):
 def displayCalcData(displayList, totalSessions, sumBurned, avgBurned, maxCal, minCal):
     
     # Display all calorie values in the list
-    print("Workout Session Data:")
-    print(displayList)
+    print("\tWorkout Number\t\tCalories Burned")
+    count = 1
+    for item in displayList:
+        print(f"\t\t{count}\t\t{item}")
+        count += 1
 
     # Display the total number of workout sessions
-    print(f"Total Sessions:\t\t{totalSessions}")
+    print(f"\nTotal Sessions:\t\t\t{totalSessions}")
 
     # Display the sum of all calories burned
-    print(f"Total Calories Burned:\t{sumBurned}")
+    print(f"Total Calories Burned:\t\t{sumBurned}")
 
     # display the average calories burned
     print(f"Average Calories Burned:\t{avgBurned:.2f}")
 
     # Display the maximum calorie value
-    print(f"Maximum calorie value:\t{maxCal}") 
+    print(f"Maximum calorie value:\t\t{maxCal}") 
 
     # Display the minimum calorie value 
-    print(f"Minimum calorie value:\t{minCal}") 
+    print(f"Minimum calorie value:\t\t{minCal}") 
 
 def main(): 
     # Calls function to display the start of project
     projectStart()
 
     #import data; assign to list variable
-    dataList = fileDataToList()
+    dataList = readData()
+
+    #validate Integers
+    displayList = validateIntegers(dataList)
 
     #calculate data
-    displayList, totalSessions, sumBurned, avgBurned, maxCal, minCal = calculateData(dataList)
+    displayList, totalSessions, sumBurned, avgBurned, maxCal, minCal = calculateData(displayList)
 
     #display calculated data
     displayCalcData(displayList, totalSessions, sumBurned, avgBurned, maxCal, minCal)
