@@ -15,7 +15,7 @@ def projectStart():
     print('\nStart of Project 7')
     print('Written by: Thomas Butler')
     print('Date: 08-11-2026')
-    print(squigglyWrap('TITLE OF PROJECT 7'))
+    print(squigglyWrap('Create Identity'))
 
 
 # This function will display the project footer
