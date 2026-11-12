@@ -2,36 +2,14 @@
 # Name: Thomas Butler
 # Date: 01-October-2026
 # Project: Project 3
-# Status: WIP
+# Status: Production
 # Class: COSC 1336 (20)
 # ---------------------------------------------
-# Project Objectives
-# Description
-
-#A local delivery company, AllyBaba Express, charges customers based on the weight of packages shipped during the month.
-#The company uses the following monthly shipping rate structure:
-# $2.00 per package for fewer than 10 packages  
-# $1.75 per package for 10–24 packages  
-# $1.50 per package for 25–49 packages  
-# $1.25 per package for 50 or more packages  
-#In addition, every customer pays a flat monthly service fee of $15.00.
-#-----------------
-#1. Prompts the user to enter:  
-#       Customer name  
-#       Number of packages shipped during the month  
-#2. Calculates:  
-#       Shipping charges  
-#       Total monthly charges  
-#3. Displays a formatted summary showing:  
-#       Customer name  
-#       Number of packages shipped  
-#       Shipping rate used  
-#       Total monthly charges  
+# Program Prompts the user to enter Customer name and Number of packages shipped during the month  
+# It Calculates per-package Shipping rate based on package quantity shipped monthly and Total monthly charges  
+# Then it Displays a formatted summary showing Customer name number of packages shipped Shipping rate used and Total monthly charges  
+# Input validation is included for negative package quantities
 # ---------------------------------------------
-#Your program must validate the input.
-#       If the user enters a negative number for packages shipped, display the following message:  
-#               ERROR: Number of packages cannot be negative.
-#       The program should not perform any calculations when invalid input is entered.  
 
 # This function will display the start of the project
 def main():
@@ -49,19 +27,20 @@ def main():
 
     # Calls function to display the end of project
     projectEnd()
-   
+
+# Define function to display project header
 def projectStart():
     print('\nStart of Project 3')
     print('Written by: Thomas Butler')
     print('Date: 01-10-2026')
     print(squigglyWrap('Shipping Fee Calculator'))
 
-# This function will display the start of the project
+# This function will display the end of the project
 def projectEnd():
     print(squigglyWrap('End of Project 3'))
 
-# This function will return an integer input from the user
-def getIntegerData(prompt):
+# This function will return a positive integer input from the user and throw an error for negative input
+def getPositiveInteger(prompt):
     # Error validation
     while(True):
         value = int(input(prompt))
@@ -91,7 +70,7 @@ def squigglyWrap(text):
 
 def promptUser():
     name = getStringData('\nPlease enter customer name:\t')
-    numPkgs = getIntegerData('\nPlease enter number of packages shipped during the month:\t')
+    numPkgs = getPositiveInteger('\nPlease enter number of packages shipped during the month:\t')
     return name, numPkgs
 
 # Define functino to calculate shipping charges by number of packages.
