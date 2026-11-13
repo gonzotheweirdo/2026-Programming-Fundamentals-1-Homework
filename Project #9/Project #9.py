@@ -11,7 +11,7 @@
 
 # This function will display the start of the project
 def projectStart():
-    print('Start of Project 9')
+    print('Start of Project  9')
     print('Written by: Your Name')
     print('Date: Enter date ')
     print('-' * 50 )
@@ -57,6 +57,25 @@ def getCharData(prompt):
             return value
 
         print('\t\tERROR Message: Wrong selection')
+
+#       1. Constructor
+# Accepts yearInstalled and brand as arguments
+# Initializes the attributes with the given values
+# Sets currentTemp to 72°F
+#       2. Accessor Methods
+# getYearInstalled() → returns installation year
+# getBrand() → returns brand name
+# getCurrentTemp() → returns current temperature
+#       3. Setter Method
+# setTemperature() → allows updating temperature
+# Temperature must stay within a safe range:
+# Minimum: 60°F
+# Maximum: 85°F
+#       4. increaseTemp() Method
+# Increases temperature by 2°F each time it is called
+#       5. decreaseTemp() Method
+# Decreases temperature by 2°F each time it is called
+# Temperature cannot go below 60°F
 
 def main(): 
     # Calls function to display the start of project
