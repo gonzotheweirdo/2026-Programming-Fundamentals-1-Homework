@@ -1,75 +1,96 @@
-# ---------------------------------------------
-# Name: Your Name
-# Date: Date of sunmission
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+# Name: Thomas Butler
+# Date: 15-11-2026
 # Project: Project 8
-# Status: WIP
-# Class: COSC 1336
-# ---------------------------------------------
-# Project Objectives
-#   Here you write the project desctiptiopn
-#The program will read data from a text file named inventoryData.txt.
-# Each line in the file will contain a product record in the following format: productCode,productName
+# Status: Production
+# Class: COSC 1336 (20)
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+#       Project Objectives
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+# Program creates and manages a product inventory database for a grocery store using a dictionary.
+# The dictionary will use the product code as the key and the product name as the value.
+# 
+# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
-# ---------------------------------------------
-
-# This function will display the start of the project
+# This function will display the project header
 def projectStart():
-    print('Start of Project 8')
-    print('Written by: Your Name')
-    print('Date: Enter date ')
-    print('-' * 50 )
-    print('\tHere your write project information')
-    print('-' * 50 + '\n')
+    print('\nStart of Project 8')
+    print('Written by: Thomas Butler')
+    print('Date: 15-11-2026')
+    print(squigglyWrap('Inventory Database'))
 
-# This function will display the start of the project
+# This function will display the project footer
 def projectEnd():
-    print('-' * 50)
-    print('End of Project 8')
+    print(squigglyWrap('End of Project 8'))
 
-# This function will return an integer input from the user
-def getIntegerData(prompt):
-    while (True):
-        try:
-            value = int(input(prompt))
-            return value
-        except ValueError:
-            print('\t\tError Message.  Enter numbers ONLY!')
+# This function adds squiggly borders
+def squigglyWrap(text):
+    squiggly = '~ ' * 25 + '~'
+    wrapped = '\n' + squiggly + '\n\t' + text + '\n' + squiggly + '\n'
+    if text == '':
+        return squiggly
+    else:
+        return wrapped
 
-# This function will return a float input from the user
-def getFloatData(prompt):
-    while (True):
-        try:
-            value = float(input(prompt))
-            return value
-        except ValueError:
-            print('\t\tError Message.  Enter numbers ONLY!')
-
-# This function will return a string input from the user
+# This function will return a string input from the user, validated to be non-empty and converted to uppercase
 def getStringData(prompt):
     value = input(prompt)
-    return value
+    while(True):
+        if value != '':
+            return value.upper()
+        else:
+            print('\tERROR:\tThis cannot be left empty')
 
-# This function will return a string input from the user
-def getCharData(prompt):
+def readData():
+    # Opens and reads the file
+    file = open("inventoryData.txt")
+    data = file.read()
 
-    while (True):
-        value = input(prompt)
+    # Parses each line
+    lines = data.split('\n')
+    file.close()
 
-        value = value.upper()
-        if (value in ['W', 'D', 'E']):
-            return value
+    # Populates the dictionary
+    inventory = {}
+    for line in lines:
+        print(line.split(','))#code, name = line.split(',')
+        inventory[code] = name
 
-        print('\t\tERROR Message: Wrong selection')
+    # Returns the completed dictionary
+    return inventory
+
+def displayResult(productCode, productName):
+    # Accepts the product code and corresponding product name (or error message). Displays the result in a formatted manner.
+    print(squigglyWrap(f'\nProduct Code:\t{productCode}\nProduct Name:\t{productName}\n'))
 
 def main(): 
+    
     # Calls function to display the start of project
     projectStart()
 
-    # Below we start coding
+    # Populate dictionary with contents of inventoryData.txt
+    inventory = readData()
+
+    # Loop defaults to continue until user decides to exit
+    continueLoop = True
+
+    while continueLoop:
+        # Prompt user for product code
+        productCode = getStringData('Please enter a product code:\t')
+        productName = inventory.get(productCode, 'Product Not Found.')
+
+        # Display the result
+        displayResult(productCode, productName)
+
+        # Prompt user to continue or exit
+        userChoice = getStringData('Would you like to search for another product? (Y/N):\t')
+        if userChoice == 'N':
+            continueLoop = False
+            print('\n\tProgram Ending...')
+        elif userChoice != 'Y':
+            print('\tERROR:\tPlease enter Y or N')
 
     # Calls function to display the start of project
     projectEnd()
       
 main() # calling the function main()
-
-
