@@ -15,14 +15,14 @@
 
 # This function will display the project header
 def projectStart():
-    print('\nStart of Project 8')
+    print('\nStart of Project 9')
     print('Written by: Thomas Butler')
-    print('Date: 15-11-2026')
-    print(squigglyWrap('Inventory Database'))
+    print('Date: 22-11-2026')
+    print(squigglyWrap('Thermostat'))
 
 # This function will display the project footer
 def projectEnd():
-    print(squigglyWrap('End of Project 8'))
+    print(squigglyWrap('End of Project 9'))
 
 # This function adds squiggly borders
 def squigglyWrap(text):
@@ -40,56 +40,169 @@ def getStringData(prompt):
         if value != '':
             return value.upper()
         else:
-            print('\tERROR:\tThis cannot be left empty\n')
+            print('\n\tERROR:\tThis cannot be left empty\n')
 
+# This function will return an integer input from the user
+def getIntegerData(prompt):
+    while (True):
+        try:
+            value = int(input(prompt))
+            return value
+        except ValueError:
+            print('\n\tError Message.  Enter numbers ONLY!\n')
 
 # Defining Thermostat class
-class Thermostat:
+class Thermostat(object):
     
     # Constructor function
-    def constructor(yearInstalled, brand):
+    def __init__(self, brand, yearInstalled, temp):
+        
+        # Initializes the attributes with the given values
+        self.yearInstalled = yearInstalled
+        self.brand = brand
 
-# Initializes the attributes with the given values
-        __init__
-# Sets currentTemp to 72°F
+        # Sets currentTemp to 72°F
+        self.currentTemp = 72
+        self.currentTemp = temp
 
     # Accessor Methods
-    def getYearInstalled()
-        #integer between 2015 and 2026 
-
-        # returns installation year
+    def getYearInstalled(self):
+        #return year installed
+        return self.yearInstalled
     
-    def getBrand()
+    def getBrand(self):
         # returns brand name
+        return self.brand
     
-    def getCurrentTemp()
+    def getCurrentTemp(self):
         # returns current temperature
+        return self.currentTemp
 
     # Setter Method
-    def setTemperature()
-    
-        # allows updating temperature
+    def setTemperature(self, tempInput):
+        
+        # allows updating temperature. Temperature must stay within a safe range:
+        if tempInput < 60:
+            print("[MIN LIMIT REACHED]")
+            self.currentTemp = 60
+        
+        elif tempInput > 85:
+            print("[MAX LIMIT REACHED]")
+            self.currentTemp = 85
 
-        # Temperature must stay within a safe range:
-        # Minimum: 60°F
-        # Maximum: 85°F
+        #if tempInput is in range, set as current temp
+        else:
+            self.currentTemp = tempInput
 
     # Method to increase temp
-    def increaseTemp():
-    
+    def increaseTemp(self):
+        
         # Increases temperature by 2°F each time it is called
+        self.currentTemp += 2
+        if self.currentTemp > 85:
+            print("\t\t[MAX LIMIT REACHED]")
+            self.currentTemp = 85
 
     # Method to decrease temp
-    def decreaseTemp():
+    def decreaseTemp(self):
     
         # Decreases temperature by 2°F each time it is called
-        # Temperature cannot go below 60°F
+        self.currentTemp -= 2
+        if self.currentTemp < 60:
+            print("\t\t[MIN LIMIT REACHED]")
+            self.currentTemp = 60
+
+    # return string version of currentTemp
+    def __str__(self, currentTemp):
+        stringTemp = str(currentTemp) + "°F"
+        return stringTemp
+
+
+# prompt user for brand
+def brandPrompt():
+    validBrands = ["HONEYWELL", "NEST", "ECOBEE", "GOOGLE"]
+    while(True):
+        brand = getStringData("Please enter the thermostat Brand and press \"Enter\"(Nest, Ecobee, Honeywell, Google):\t")
+        if brand.upper() in validBrands:
+            return brand
+        else:
+            print("\n\tERROR:\tPlease enter Nest, Honeywell, Ecobee, Google.\t")
+
+# prompt user for year
+def yearPrompt():
+    while(True):
+        yearInstalled = getIntegerData("Please enter the thermostat's year (2015 - 2026):\t")
+        
+        #integer between 2015 and 2026 
+        if yearInstalled >= 2015 and yearInstalled <= 2026:
+
+            # returns installation year
+            return yearInstalled
+
+        #else throw error
+        else:
+            print("\n\tERROR:\tYear must be 2015 - 2026\n")
+
+# prompt user for starting temp
+def tempPrompt():
+    while(True):
+        startingTemp = getIntegerData("Please enter a starting temperature (60-85):\t")
+        if startingTemp >= 60 and startingTemp <= 85:
+            return startingTemp
+        else:
+            print("\n\tERROR: Starting temperature must be between 60 and 85!\n")
+
+#prompt the user how many times to increase temp
+def qtyIncrease():
+    while(True):
+        qty = getIntegerData("How many times to increase temperature?\t")
+        if qty >= 0:
+            return qty
+        else:
+            print("\tERROR: Number of times cannot be negative.\n")
+
+#prompt the user how many times to decrease temp
+def qtyDecrease():
+    while(True):
+        qty = getIntegerData("How many times to decrease temperature?\t")
+        if qty >= 0:
+            return qty
+        else:
+            print("\tERROR: Number of times cannot be negative.\n")
 
 def main(): 
     # Calls function to display the start of project
     projectStart()
 
-    # 
+    # prompt for brand
+    brand = brandPrompt()
+
+    #prompt for year
+    year = yearPrompt()
+
+    #prompt for starting Temp
+    temp = tempPrompt()
+
+    thermoKing = Thermostat(brand, year, temp)
+
+    thermoKing.setTemperature(temp)
+    
+    qtyUp = qtyIncrease()
+    qtyDown = qtyDecrease()
+
+    i = 1
+    while i <= qtyUp:
+        thermoKing.increaseTemp()
+        tempToPrint = thermoKing.getCurrentTemp()
+        print(f"Increase #{i}: +2°F\tCurrent Temp: {tempToPrint}°F")
+        i += 1
+
+    i = 1
+    while i <= qtyDown:
+        thermoKing.decreaseTemp()
+        tempToPrint = thermoKing.getCurrentTemp()
+        print(f"Decrease #{i}: -2°F\tCurrent Temp: {tempToPrint}°F")
+        i += 1
 
     # Calls function to display the end of project
     projectEnd()
